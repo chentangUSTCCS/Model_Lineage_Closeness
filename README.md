@@ -7,7 +7,7 @@ In addition, the content in the paper's appendix will also be organized and uplo
 
 
 
-# Promising Application of Model Lineage Closeness
+## Promising Application of Model Lineage Closeness
 (1) Model copyright detection: when models are deployed to the cloud to gain revenue by providing services, model lineage closeness can detect if the deployed model is a pirated model of a model already on the cloud;
 
 (2) Model retrieval: the open-source model zoo can leverage lineage closeness to manage model versions to achieve efficient target model retrieval in a large number of models;
