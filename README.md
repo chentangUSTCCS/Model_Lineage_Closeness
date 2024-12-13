@@ -15,3 +15,7 @@ In addition, the content in the paper's appendix will also be organized and uplo
 (3) Model authentication: models are considered intellectual property and must be registered like patents. Model lineage closeness can be used to register new models;
 
 (4) Model provenance: in forensic scenarios, model lineage closeness can provide the entire chain of model piracy modifications and determine the source of piracy.
+
+
+## Future work
+Looking ahead, our future research endeavors will focus on developing a more comprehensive measure of lineage closeness that can be applied to a broader range of model types. Currently, our proposed method is specifically designed for supervised classification models. Consequently, non-classification models, which lack a decision boundary, are not compatible with our approach.
