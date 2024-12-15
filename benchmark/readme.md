@@ -8,7 +8,7 @@ In this benchmark, we maintain the model structures used in the original benchma
 
 ## How to get the benchmark
 
-We will provide an url to download these models;
+You can download the benchmark from this URL: https://drive.google.com/file/d/15sI7sLGZJ34if9p8cezcx6OzYQnpsA1O/view?usp=sharing
 
 ## How to get the dataset
 
