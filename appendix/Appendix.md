@@ -27,23 +27,23 @@ This section describes content and experiments that the paper did not have space
 ## Visualization experiments supplement
 We provide detailed decision boundary visualization results for different models: the source model, lineage models, and no lineage models in this section. The visualization method is using three different randomly sampled data points to visualize the decision boundary and decision area in the plane where these data points are located. And the black dots represent distinct data points, while regions of the same color correspond to the same decision area.
 
-<img src="\fig\image-20241214151035888.png" alt="image-20241214151035888" style="zoom:50%;" />
+<img src="fig\image-20241214151035888.png" alt="image-20241214151035888" style="zoom:50%;" />
 
 As shown in Fig, we observe that when models have lineage, the decision boundaries are strongly similar in almost all the visualized decision areas. But when models have no lineage, there are significant differences between their decision boundaries. 
 
-<img src="\fig\image-20241214151134842.png" alt="image-20241214151134842" style="zoom:50%;" />
+<img src="fig\image-20241214151134842.png" alt="image-20241214151134842" style="zoom:50%;" />
 
 
 Additionally, we present visualizations of the decision boundaries for lineage models that have undergone modifications using techniques from the first category, as illustrated in Fig. Our observations reveal that all modifications have an effect on the decision boundaries of the source model, but a majority of the decision boundaries remain similar. Fine-tuning and quantization, which do not alter the parameters of the source model's feature extraction, exhibit negligible impact on the decision boundaries. Similarly, pruning eliminates redundant parameters that have minimal influence on the model's feature extraction, resulting in an insignificant alteration to the decision boundary. While adversary training modifies the decision boundaries to enhance the source model's robustness against adversarial attacks, but the decision boundaries still retain partial similarity.
 
-![image-20241214151205645](\fig\image-20241214151205645.png)
+![image-20241214151205645](fig\image-20241214151205645.png)
 
 
 Furthermore, we visualized decision boundaries of models modified by the third category modification technique, as shown in Fig. We observed that in the feature-based distillation modification, decision boundaries undergo significant changes while retaining partial similarity. Conversely, in the output-based distillation modification, the decision boundaries predominantly differ. 
 
-![image-20241214151253871](\fig\image-20241214151253871.png)
+![image-20241214151253871](fig\image-20241214151253871.png)
 
-![image-20241214151304727](\fig\image-20241214151304727.png)
+![image-20241214151304727](fig\image-20241214151304727.png)
 
 
 Upon investigating the decision boundaries of various model techniques, we identified two distinct types of decision boundaries. Among all the lineage models, we discovered a subset of decision boundaries that exhibit high sensitivity to any form of modification, regardless of its magnitude. This phenomenon is illustrated in Fig, where the decision boundaries within the white boxes differ across all lineage models. Conversely, another type of decision boundary is consistently observed across all types of models, including the source model, lineage models, and no lineage models. This characteristic is exemplified in Fig.\ref{fig:easy_to_similart}, where the decision boundaries within the white boxes remain identical across all models.
@@ -61,7 +61,7 @@ The primary concern with these efforts lies in their reliance on the features su
 ## Description of Benchmark
 In this benchmark, we maintain the model structures used in the original benchmark, namely MobileNetv2 and ResNet18, as well as the dataset: Oxford Flowers 102, Stanford Dogs 120 and ImageNet. As presented in Table, the benchmark now encompasses a total of 136 models. Among these, there are 2 pretrained models that have been trained using the ImageNet dataset. Additionally, there are 108 lineage models derived from the pretrained models. These lineage models consist of 12 transferred models, 24 fine-tuned models, 24 pruned models, 12 adversary trained models, 24 quantized models, and 12 distilled models. Each lineage model is constructed based on one of the transferred models, employing different modification techniques as described in the "Configuration" column of Tab. Furthermore, there are 26 retrained models that have been trained from scratch.
 
-![image-20241214151633840](\fig\image-20241214151633840.png)
+![image-20241214151633840](fig\image-20241214151633840.png)
 
 ## Quantization Analysis for Model Modification
 In this section, we provide a fine-grained quantitative analysis of the effects of different modification techniques on the model lineage closeness.
@@ -70,11 +70,11 @@ In this section, we provide a fine-grained quantitative analysis of the effects 
 % 不同数量的epoch
 We perform different epochs of fine-tuning for different model structures with different fine-tuning methods. The results are shown in Tab, from which we can see that fine-tuning the model with different epochs does not significantly affect the model lineage closeness. Since fine-tuning does not change the feature extraction layer, it does not have significant effects on the decision boundary, and thus for different epochs of fine-tuning, similar lineage closeness are obtained.
 
-![image-20241214151755358](\fig\image-20241214151755358.png)
+![image-20241214151755358](fig\image-20241214151755358.png)
 
 
 ### 2. Prune
-![image-20241214151830473](\fig\image-20241214151830473.png)
+![image-20241214151830473](fig\image-20241214151830473.png)
 
 We measure the model lineage closeness at different pruning rates in two different models. To better observe the variation of the model lineage closeness, we also calculate the model accuracy, and the results are shown in Fig. The figure demonstrates that when the model accuracy decreases due to pruning, the model lineage closeness also decreases at the same time, which confirms the measuring correctness of our method, i.e., the greater the degree of modification to the model, the lower the model lineage closeness.
 
@@ -82,13 +82,13 @@ We measure the model lineage closeness at different pruning rates in two differe
 % 不同数量的对抗样本
 We modify the model by adversary training with different numbers of adversarial samples and measure the model lineage closeness. The results are shown in Fig, from which we can see that as the number of adversarial samples increases, the accuracy of the adversary-trained model is affected, thus making the model lineage closeness decrease along with it. This result shows the precise of our method.
 
-![image-20241214151856939](\fig\image-20241214151856939.png)
+![image-20241214151856939](fig\image-20241214151856939.png)
 
 ### 4. Distillation
 % 不同数量的epoch
 We distill models with 1000 epochs and save models every 50 epochs. Then, we measure these model lineage closeness with the source model and record the corresponding model accuracy. The results are shown in Fig. Figures show that as the number of training epochs increases, the model accuracy increases, and the model lineage closeness gradually increases, which means that the distilled model and the source model are becoming more and more similar. This result corresponds to our perception of the distillation procession, which shows the correctness of our method.
 
-![image-20241214151918873](\fig\image-20241214151918873.png)
+![image-20241214151918873](fig\image-20241214151918873.png)
 
 ### 5. Quantization
 Quantization only changes the model parameters types to qint8/float16 to store and does not affect the model performance, thus not the model lineage. The lineage closeness of the quantized model and the source model is always 1.
@@ -100,15 +100,15 @@ We respectively transfer the source model by tuning 10\% layers, 50\% layers, an
 ## Ablation Study
 We conduct ablation study to illustrate the soundness of our method in test set generation and lineage closeness measuring. All experiments are conducted on two dataset:  Oxford Flower 102(Flower102 for short) and Stanford Dogs 120(SDog120 for short).
 
-![image-20241214161317223](\fig\image-20241214161317223.png)
+![image-20241214161317223](fig\image-20241214161317223.png)
 
 Firstly, we assess the effectiveness of our method in removing invalid samples. As depicted in Fig, we observe that the removal of invalid samples leads to higher matching rates and smaller mean distances for models that possess lineage. Conversely, for models without lineage, the matching rate decreases, and the mean distance increases. This indicates that the disparity in closeness between models with and without lineage becomes more pronounced after the removal of invalid samples. The outcome demonstrates that our method achieves greater precision following the removal of invalid samples.
 
 Secondly, we assess whether the measuring results are impacted by sampling discrepancies in data points. The results, as illustrated in Fig, indicate that there are no substantial differences in the matching rate and mean distance between lineage and no lineage models before and after the sampling of data points. This observation highlights the unbiased nature of our sampling method, as it does not significantly affect the measuring results.
 
-![image-20241214161332098](\fig\image-20241214161332098.png)
+![image-20241214161332098](fig\image-20241214161332098.png)
 
-![image-20241214161348310](\fig\image-20241214161348310.png)
+![image-20241214161348310](fig\image-20241214161348310.png)
 
 Finally, we substantiate the precision of our method for measuring lineage closeness. The results, as depicted in Fig, indicate that after removing invalid samples, the discriminate nature of model lineage is enhanced. Specifically, models with lineage exhibit higher lineage closeness, whereas models without lineage demonstrate lower lineage closeness. Furthermore, we observe that the lineage closeness remains unaffected by the sampling of discrepancy data points. Collectively, these findings affirm the precision of our lineage closeness measuring method.
 
