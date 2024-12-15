@@ -67,7 +67,6 @@ In this benchmark, we maintain the model structures used in the original benchma
 In this section, we provide a fine-grained quantitative analysis of the effects of different modification techniques on the model lineage closeness.
 
 ### 1. Fine-tune
-% 不同数量的epoch
 We perform different epochs of fine-tuning for different model structures with different fine-tuning methods. The results are shown in Tab, from which we can see that fine-tuning the model with different epochs does not significantly affect the model lineage closeness. Since fine-tuning does not change the feature extraction layer, it does not have significant effects on the decision boundary, and thus for different epochs of fine-tuning, similar lineage closeness are obtained.
 
 <img src="fig\image-20241214151755358.png" alt="image-20241214151755358" style="zoom:95%;" />
@@ -79,13 +78,11 @@ We perform different epochs of fine-tuning for different model structures with d
 We measure the model lineage closeness at different pruning rates in two different models. To better observe the variation of the model lineage closeness, we also calculate the model accuracy, and the results are shown in Fig. The figure demonstrates that when the model accuracy decreases due to pruning, the model lineage closeness also decreases at the same time, which confirms the measuring correctness of our method, i.e., the greater the degree of modification to the model, the lower the model lineage closeness.
 
 ### 3. Adversary Training
-% 不同数量的对抗样本
 We modify the model by adversary training with different numbers of adversarial samples and measure the model lineage closeness. The results are shown in Fig, from which we can see that as the number of adversarial samples increases, the accuracy of the adversary-trained model is affected, thus making the model lineage closeness decrease along with it. This result shows the precise of our method.
 
 <img src="fig\image-20241214151856939.png" alt="image-20241214151856939" style="zoom:95%;" />
 
 ### 4. Distillation
-% 不同数量的epoch
 We distill models with 1000 epochs and save models every 50 epochs. Then, we measure these model lineage closeness with the source model and record the corresponding model accuracy. The results are shown in Fig. Figures show that as the number of training epochs increases, the model accuracy increases, and the model lineage closeness gradually increases, which means that the distilled model and the source model are becoming more and more similar. This result corresponds to our perception of the distillation procession, which shows the correctness of our method.
 
 <img src="fig\image-20241214151918873.png" alt="image-20241214151918873" style="zoom:95%;" />
