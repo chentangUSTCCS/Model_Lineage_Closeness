@@ -12,4 +12,6 @@ You can download the benchmark from this URL: https://drive.google.com/file/d/15
 
 ## How to get the dataset
 
-We will provide an url to download these models.
+You can download the dataset (only conclude Flower102 and SDog120) from this URL: https://drive.google.com/file/d/1pg8salejyLEpsukDj10y99_UTpWjQ3c9/view?usp=sharing
+
+Alternatively, you can google the name of the dataset and download them.
