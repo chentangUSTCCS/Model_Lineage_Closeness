@@ -1,17 +1,17 @@
-本代码由xx仓库修改而来。
+This code is modified from the repository: [somepago/dbViz: The official PyTorch implementation - Can Neural Nets Learn the Same Model Twice? Investigating Reproducibility and Double Descent from the Decision Boundary Perspective (CVPR'22).](https://github.com/somepago/dbViz).
 
-具体运行代码所需的配置请参考上述仓库。
+Please refer to the above repository for the specific configuration required to run the code.
 
-运行本代码之前，需要配置好
+Before running this code, you need to configure
 
-1. main.py中的35行。指定好数据集，目前仅支持Flower102和Sdog120数据集。
-2. main.py中的40行。指定好模型，目前仅支持resnet18和mobilnetv2结构。
-3. main.py中的68行。指定好输出路径。
+1. line 35 in main.py. Specify a good dataset, currently only the Flower102 and Sdog120 datasets are supported.
+2. line 40 in main.py. Specify the model, currently only resnet18 and mobilnetv2 structures are supported.
+3. line 40 in main.py. Specify the model, currently only resnet18 and mobilnetv2 structures are supported.
 
-代码运行配置可通过调节option.py进行配置。
+The code run configuration can be configured by adjusting option.py.
 
-其中一个主要需要调节的是55行，调节可视化所选择的三张图像。可视化原理是通过三张图像，确定一个平面，然后可视化这个决策平面，具体原理可参考原论文和代码。因此，这三张图象的输出不能相同。
+One of the main things to adjust is line 55, which adjusts the three images selected for visualisation. The principle of visualisation is to take the three images, determine a plane, and then visualise this decision plane, as described in the original paper and code. Therefore, the output of these three images cannot be the same.
 
-结果示意：
+An example of a visualization result：
 
-![Flower_prune5](example.png)
+<img src="example.png" alt="Flower_prune5" style="zoom:80%;" />

@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, Dataset
 import torch.nn.functional as F
 import numpy as np
 from func import get_model, get_dataloader
-from get_dis_sim import calculate_distance, cal_similarity
+from generate_adv2 import calculate_distance, cal_similarity
 
 def evalu(model, testloader):
     model.eval()
@@ -86,23 +86,23 @@ def isMatch(model, sur_model, data):
 def cal_similarity(result1 , result2):
     return (sum(result1)-sum(result2))/(len(result1)+0.0001)
 
-def testset_generate(model ,Lineage_models,no_Lineage_models, dataset):
+def testset_generate(model ,blood_models,no_blood_models, dataset):
     testset = []
     for image, label in tqdm.tqdm(dataset):
         flag = True
-        for m in Lineage_models:
+        for m in blood_models:
             if not isMatch(model, m, (image, label)):
                 flag = False
                 break
         if not flag: continue
-        for m in no_Lineage_models:
+        for m in no_blood_models:
             if isMatch(model, m, (image,label)):
                 flag = False
                 break
         if flag: testset.append((image, label))
     return testset
 
-def main(dataset, SourceModelPath, LineageModelPath, NoLineageModelPath, SusModelPath, outputSize):
+def main(dataset, SourceModelPath, BloodModelPath, NoBloodModelPath, SusModelPath, outputSize):
     device = 'cuda'
     trainloader = get_dataloader(dataset_id = dataset, batch_size = 1)
     test_dataset = get_dataloader(dataset_id=dataset, split='test', batch_size=50, shuffle=False)
@@ -110,22 +110,22 @@ def main(dataset, SourceModelPath, LineageModelPath, NoLineageModelPath, SusMode
     model = get_model(fix_path + SourceModelPath+'/final_ckpt.pth', outputSize)
     model.to(device)
     model.eval()
-    Lineagemodels = []
-    for mp in LineageModelPath:
-        Lineagemodel = get_model(fix_path + mp +'/final_ckpt.pth', outputSize)
-        Lineagemodel.to(device)
-        Lineagemodel.eval()
-        Lineagemodels.append(Lineagemodel)
-    noLineagemodels = []
-    for mp in NoLineageModelPath:
-        noLineagemodel = get_model(fix_path + mp + '/final_ckpt.pth', outputSize)
-        noLineagemodel.to(device)
-        noLineagemodel.eval()
-        noLineagemodels.append(noLineagemodel)
+    bloodmodels = []
+    for mp in BloodModelPath:
+        bloodmodel = get_model(fix_path + mp +'/final_ckpt.pth', outputSize)
+        bloodmodel.to(device)
+        bloodmodel.eval()
+        bloodmodels.append(bloodmodel)
+    nobloodmodels = []
+    for mp in NoBloodModelPath:
+        nobloodmodel = get_model(fix_path + mp + '/final_ckpt.pth', outputSize)
+        nobloodmodel.to(device)
+        nobloodmodel.eval()
+        nobloodmodels.append(nobloodmodel)
 
     import time
     t = time.time()
-    testdata = testset_generate(model, Lineagemodels, noLineagemodels, trainloader)
+    testdata = testset_generate(model, bloodmodels, nobloodmodels, trainloader)
     print(f'total dataset is {len(testdata)}, about {round(len(testdata)/len(trainloader)*100,2)}%, total time is {time.time()-t}.')
 
     for item in SusMP:
@@ -139,13 +139,31 @@ def main(dataset, SourceModelPath, LineageModelPath, NoLineageModelPath, SusMode
 
 
 if __name__ == '__main__':
+    # # Souce model position
+    # SMP = 'pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-'
+    # # Blood model position
+    # BMP = ['pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-prune(0.2)-',
+    #          'pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-FineTuneLL-',
+    #          'pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-ReTrainLL-']
+    # # No Blood model position
+    # NBMP = ['pretrain(resnet18,ImageNet)-transfer(Flower102,1)-',
+    #         'pretrain(resnet18,ImageNet)-transfer(Flower102,1)-distill()-']
+    # # Suscipious model position
+    # SusMP= ['pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-advTrain-',
+    #         'pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-distill()-',
+    #         'pretrain(mbnetv2,ImageNet)-transfer(Flower102,0.5)-prune(0.5)-']
+    # main('Flower102', SMP, BMP, NBMP, SusMP, 102)
+
+    
     import os
     os.environ['CUDA_VISIBLE_DEVICES']='2'
     # Souce model position
     SMP = 'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-'
-    # lineage model position
-    BMP = ['pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-prune(0.2)-']
-    # No lineage model position
+    # Blood model position
+    BMP = ['pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-prune(0.2)-',
+           'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-FineTuneLL-',
+           'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-ReTrainLL-']
+    # No Blood model position
     NBMP = ['pretrain(resnet18,ImageNet)-transfer(SDog120,0.5)-',
             'pretrain(resnet18,ImageNet)-transfer(SDog120,0.5)-distill()-']
     # Suscipious model position
@@ -153,5 +171,7 @@ if __name__ == '__main__':
              'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-ReTrainLL-',
              'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-prune(0.2)-',
              'pretrain(mbnetv2,ImageNet)-transfer(SDog120,0.1)-prune(0.5)-',
-             'pretrain(resnet18,ImageNet)-transfer(SDog120,1)-prune(0.5)-']
+             'pretrain(resnet18,ImageNet)-transfer(SDog120,1)-prune(0.5)-',
+             'pretrain(resnet18,ImageNet)-transfer(SDog120,1)-steal(mbnetv2)-',
+             'pretrain(resnet18,ImageNet)-transfer(SDog120,1)-steal(resnet18)-']
     main('SDog120', SMP, BMP, NBMP, SusMP, 120)

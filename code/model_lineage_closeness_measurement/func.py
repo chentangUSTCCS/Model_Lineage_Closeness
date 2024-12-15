@@ -28,7 +28,7 @@ from tqdm import trange
 import yaml
 
 
-def get_dataloader(dataset_id, datasets_dir='./data', split='train', batch_size=64, shuffle=True, seed=98, shot=-1):
+def get_dataloader(dataset_id, datasets_dir='../data', split='train', batch_size=64, shuffle=True, seed=98, shot=-1):
     """
     Get the torch Dataset object
     :param dataset_id: the name of the dataset, should also be the dir name and the class name
