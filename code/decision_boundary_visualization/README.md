@@ -4,7 +4,7 @@ Please refer to the above repository for the specific configuration required to 
 
 Before running this code, you need to configure
 
-1. line 35 in main.py. Specify a good dataset, currently only the Flower102 and Sdog120 datasets are supported.
+1. line 35 in main.py. Specify the dataset, currently only the Flower102 and Sdog120 datasets are supported.
 2. line 40 in main.py. Specify the model, currently only resnet18 and mobilnetv2 structures are supported.
 3. line 40 in main.py. Specify the model, currently only resnet18 and mobilnetv2 structures are supported.
 
