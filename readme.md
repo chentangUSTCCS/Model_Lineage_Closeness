@@ -1,9 +1,9 @@
-This the implementation of "Model Lineage Closeness Analysis" in AAAI 2025.
+This is the implementation of "Model Lineage Closeness Analysis" in AAAI 2025.
 
-目录：
+Catalogs：
 
-- Appendix：文章写不下的内容。
+- Appendix： Extra content without space to be described in the paper.
 - Code：
-  - 决策边界可视化代码
-  - 模型血缘远近度量代码
-- Benchmark：基准模型集
+  - Visualization of Decision boundaries.
+  - Model lineage closeness measurement.
+- Benchmark: contains 136 models for model modification evaluation.
