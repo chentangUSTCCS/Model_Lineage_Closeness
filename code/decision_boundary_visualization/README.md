@@ -9,7 +9,6 @@ Before running this code, you need to configure
 3. line 40 in main.py. Specify the model, currently only resnet18 and mobilnetv2 structures are supported.
 
 The code run configuration can be configured by adjusting option.py.
-
 One of the main things to adjust is line 55, which adjusts the three images selected for visualisation. The principle of visualisation is to take the three images, determine a plane, and then visualise this decision plane, as described in the original paper and code. Therefore, the output of these three images cannot be the same.
 
 An example of a visualization result：
